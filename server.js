@@ -4,15 +4,17 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 require('dotenv').config({ path: './config.env' }); // Load environment variables from config.env
-app.options('*', cors());
+
 app.use(express.json());
 
 // Configure CORS to allow requests from your Netlify domain
 const corsOptions = {
-  origin: '*', // Replace with your Netlify domain
+  origin: 'https://gymwatertracker.netlify.app', // Correct domain
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
+
+app.options('*', cors(corsOptions)); // Handle preflight across all routes
 
 const mongoUri = process.env.MONGODB_URI;
 
